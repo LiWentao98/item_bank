@@ -101,6 +101,9 @@
         }else if (res.username === 'admin' && res.password === '123456') {
           // 数据静态定义
           // 编程时导航跳转到主页
+          let str = res.value2 + ''
+          // 将类型转换成string送入sessionStorage存储
+          window.sessionStorage.setItem("token", str)
           this.$router.push("/home")
           return this.$message.success('登陆成功！')
         }else{

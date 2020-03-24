@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 // 路由懒加载
 const Login = () => import("../views/Login")
-const Home = () => import("../views/Home")
+const Home = () => import("../views/Home/Home")
 const Welcome = () => import("../views/Welcome")
 // 校级管理员页面
 
