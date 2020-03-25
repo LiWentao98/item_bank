@@ -29,6 +29,7 @@ import {
   Select,
   Option,
   Link,
+  PageHeader,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -58,5 +59,6 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Link)
+Vue.use(PageHeader)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
