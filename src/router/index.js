@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 const Login = () => import("../views/Login")
 const Home = () => import("../views/Home/Home")
 const Welcome = () => import("../views/Welcome")
+const Bank = () => import("../views/common/Bank")
 // 校级管理员页面
 
 // 院级管理员的页面
@@ -31,6 +32,10 @@ const routes = [
       {
         path: '/welcome',
         component: Welcome
+      },
+      {
+        path: '/bank',
+        component: Bank
       }
     ]
   }
@@ -39,6 +44,15 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: 'history'
+})
+
+// 挂载导航守卫
+router.beforeEach((to, from, next) => {
+  if(to.path === '/login') return next();
+  // 获取token
+  const tokenStr = window.sessionStorage.getItem("token")
+  if(!tokenStr) return next("/login")
+  next()
 })
 
 export default router

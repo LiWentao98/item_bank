@@ -62,74 +62,112 @@
         data1: [{
           id: 1,
           authName: '题库',
-          path: 'banks',
-          children: []
-        }, {
-          id: 2,
-          authName: '我的选题',
-          path: 'topic',
-          children: []
-        }, {
-          id: 3,
-          authName: '我的试卷',
-          path: 'test_paper',
-          children: []
-        }, {
-          id: 4,
-          authName: '试题',
-          path: 'test_question',
           children: [
             {
               id: 11,
+              authName: '实时题库',
+              path: 'banks',
+            }
+          ]
+        }, {
+          id: 2,
+          authName: '选题',
+          children: [
+            {
+              id: 12,
+              authName: '我的选题',
+              path: 'topic',
+            }
+          ]
+        }, {
+          id: 3,
+          authName: '试卷',
+          children: [
+            {
+              id: 13,
+              authName: '我的试卷',
+              path: 'test_paper',
+            }
+          ]
+        }, {
+          id: 4,
+          authName: '试题',
+          children: [
+            {
+              id: 14,
               authName: '上传试题',
               path: 'upload_question',
             },
             {
-              id: 12,
+              id: 15,
               authName: '我的试题',
               path: 'my_question',
             }
           ]
         }, {
           id: 5,
-          authName: '我的信息',
-          path: 'informations',
-          children: []
+          authName: '个人详情',
+          children: [
+            {
+              id: 16,
+              authName: '我的信息',
+              path: 'my_profile',
+            }
+          ]
         }, {
           id: 6,
-          authName: '通知',
-          path: 'messages',
-          children: []
+          authName: '消息',
+          children: [
+            {
+              id: 17,
+              authName: '通知',
+              path: 'messages',
+            }
+          ]
         }],
         // 管理员对应的菜单
         data2: [{
           id: 1,
           authName: '用户管理',
-          path: 'm_users',
           children: [{
             id: 11,
             authName: '用户列表',
-            path: 'm_roles',
+            path: 'm_users_roles',
           }, {
             id: 12,
             authName: '类型管理',
-            path: 'm_rights',
+            path: 'm_users_rights',
           }]
         }, {
           id: 2,
-          authName: '学校列表',
-          path: 'schools',
-          children: []
+          authName: '学校管理',
+          children: [
+            {
+              d: 13,
+              authName: '学校列表',
+              path: 'schools',
+            }
+          ]
         }, {
           id: 3,
-          authName: '我的信息',
-          path: 'm_information',
-          children: []
+          authName: '个人详情',
+          children: [
+            {
+              id: 14,
+              authName: '我的信息',
+              path: 'm_profile',
+            }
+          ]
         }, {
           id: 4,
-          authName: '通知管理',
-          path: 'm_message',
-          children: []
+          authName: '消息管理',
+          children: [
+            {
+              id: 15,
+              authName: '通知',
+              path: 'm_message',
+            }
+          ]
         }],
         iconsObj: {
           '1': 'iconfont icon-user',
@@ -154,8 +192,8 @@
     methods: {
       logout() {
         window.sessionStorage.clear();
-        this.$message.success("已退出！")
         this.$router.push('/login')
+        this.$message.success("已退出！")
       },
       //  获取所有菜单
       getMenuList() {
