@@ -1,13 +1,13 @@
 <template>
-    <div>欢迎您！</div>
+    <div>学校列表</div>
 </template>
 
 <script>
   export default {
-    name: "Welcome"
+    name: "SchoolsList"
   }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 
 </style>

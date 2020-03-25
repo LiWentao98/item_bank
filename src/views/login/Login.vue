@@ -66,7 +66,8 @@
           }],
           value1: '',
           value2: '',
-          types: [{value: '1', label: '教师'}, {value: '2', label: '管理员'}],
+          types: [{value: '1', label: '命题教师'}, {value: '2', label: '审题教师'},
+            {value: '3', label: '校级管理员'}, {value: '4', label: '院级管理员'}, {value: '5', label: '超级管理员'}],
           username: 'admin',
           password: '123456'
         },
@@ -148,6 +149,7 @@
         top: 10%;
         color: #409eff;
         font-weight: 700;
+        font-family: '华文行楷';
         font-size: 35px;
         margin-bottom: 20px;
         text-align: center;
