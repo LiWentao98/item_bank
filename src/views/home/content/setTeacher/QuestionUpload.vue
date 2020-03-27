@@ -1,55 +1,119 @@
 <template>
-  <div class="question_upload">
-    <span>试题录入</span>
+  <div>
+    <div class="crumbs">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item><i class="el-icon-lx-calendar"></i> 试题</el-breadcrumb-item>
+        <el-breadcrumb-item>上传试题</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <el-card class="box-card">
+      <div class="container">
+        <quill-editor ref="myTextEditor" v-model="content" :options="editorOption"></quill-editor>
+        <el-form ref="form" :model="form" label-width="80px">
+          <el-form-item label="试题题型">
+            <el-select v-model="form.region1" placeholder="请选择">
+              <el-option key="bbk" label="选择题" value="bbk"></el-option>
+              <el-option key="xtc" label="填空题" value="xtc"></el-option>
+              <el-option key="imoo" label="解答题" value="imoo"></el-option>
+            </el-select>
+          </el-form-item>
+          <div class="form1">
+            <el-form-item label="所属章节">
+              <el-select v-model="form.region2" placeholder="请选择">
+                <el-option key="bbk" label="链表" value="bbk"></el-option>
+                <el-option key="xtc" label="数组" value="xtc"></el-option>
+                <el-option key="imoo" label="矩阵" value="imoo"></el-option>
+              </el-select>
+            </el-form-item>
+          </div>
+          <el-form-item label="试题难度">
+            <el-select v-model="form.region3" placeholder="请选择">
+              <el-option key="bbk" label="简单" value="bbk"></el-option>
+              <el-option key="xtc" label="一般" value="xtc"></el-option>
+              <el-option key="imoo" label="困难" value="imoo"></el-option>
+            </el-select>
+          </el-form-item>
+          <div class="form2">
+            <el-form-item label="知识点">
+              <el-input v-model="form.region4"></el-input>
+            </el-form-item>
+          </div>
+          <div class="form3">
+            <el-form-item label="试题答案">
+              <el-input type="textarea" rows="5" v-model="form.region5" placeholder="请在此输入试题答案"></el-input>
+            </el-form-item>
+          </div>
+        </el-form>
+        <div class="form4">
+          <el-button class="editor-btn" type="primary" @click="submit">保存</el-button>
+          <el-button class="editor-btn" type="primary" @click="submit2">提交审核</el-button>
+        </div>
+      </div>
+    </el-card>
   </div>
 </template>
 
 <script>
+  import 'quill/dist/quill.core.css';
+  import 'quill/dist/quill.snow.css';
+  import 'quill/dist/quill.bubble.css';
+  import {quillEditor} from 'vue-quill-editor';
+
   export default {
-    name: "QuestionUpload",
-    data() {
+    name: 'QuestionUpload',
+    data: function () {
       return {
-        question_content:''
+        content: '',
+        editorOption: {
+          placeholder: 'Hello World'
+        },
+        form: {
+          region1: '',
+          region2: '',
+          region3: '',
+          region4: '',
+          region5: ''
+        }
+      }
+    },
+    components: {
+      quillEditor
+    },
+    methods: {
+      onEditorChange({editor, html, text}) {
+        this.content = html;
+      },
+      submit() {
+        console.log(this.content);
+        this.$message.success('保存成功！');
+      },
+      submit2() {
+        console.log(this.content);
+        this.$message.success('提交成功！');
       }
     }
   }
 </script>
-
 <style scoped>
-  .question_upload {
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
+  .form1 {
+    position: relative;
+    left: 380px;
+    top: -63px;
   }
-  .question {
-    width: 100%;
-    height: 250px;
-    margin-top: 2px;
-    padding: 5px;
+
+  .form2 {
+    position: relative;
+    left: 380px;
+    top: -63px;
+    width: 300px;
   }
-  .tags {
-    width: 100%;
-    border: solid 1px #8695a7;
-    margin-top: 5px;
-    font-size: 14px;
+
+  .form3 {
+    width: 680px;
   }
-  .tags tr {
-    height: 35px;
-  }
-  .tags select,input {
-    width: 140px;
-    font-size: 14px;
-    padding-bottom: 1px;
-  }
-  .buttons {
-    width: 100%;
-    margin: 10px auto 15px auto;
-    display: flex;
-  }
-  .buttons button {
-    height: 30px;
-    margin: 0 5px;
-    flex: 1;
-    font-size: 13px;
+
+  .form4 {
+    position: relative;
+    left: 400px;
   }
 </style>

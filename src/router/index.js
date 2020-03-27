@@ -20,7 +20,8 @@ const FacultyList = () => import("../views/home/content/sAdmin/FacultyList")
 // 院级管理员的页面
 const TeachersList = () => import("../views/home/content/fAdmin/TeachersList")
 const FExamManage = () => import("../views/home/content/fAdmin/FExamManage")
-const ProfessionManage = () => import("../views/home/content/fAdmin/ProfessionManage")
+const MajorManage = () => import("../views/home/content/fAdmin/MajorManage")
+const SubjectManage = () => import("../views/home/content/fAdmin/SubjectManage")
 
 // 审核教师的页面
 const NRQuestionsList = () => import("../views/home/content/reviewTeacher/NRQuestionsList")
@@ -35,8 +36,11 @@ const QuestionsStore = () => import("../views/home/content/setTeacher/QuestionsS
 // 共有的页面
 const MyQuestions = () => import("../views/home/content/common/MyQuestions")
 const Message = () => import("../views/home/content/common/Message")
+const SendMessage = () => import("../views/home/content/common/SendMessage")
 const MyProfile = () => import("../views/home/content/common/MyProfile")
 const Welcome = () => import("../views/home/content/common/Welcome")
+const ChangePassword = () => import("../views/home/content/common/ChangePassword")
+
 
 Vue.use(VueRouter)
 
@@ -52,47 +56,58 @@ const routes = [
   {
     path: '/home',
     component: Home,
-    redirect: '/welcome',
     children: [
       {
-        path: '/welcome',
+        path: '',
+        redirect: 'welcome'
+      },
+      {
+        path: 'welcome',
         component: Welcome
       },
       // 命题教师路由
       {
-        path: '/s_teacher',
+        path: 's_teacher',
         component: Content,
         children: [
           {
-            path: 's_questions_store',
+            path: '',
+            redirect: 'questions_store'
+          },
+          {
+            path: 'questions_store',
             component: QuestionsStore
           },
           {
-            path: 's_my_topic',
+            path: 'my_topic',
             component: STopic
           },
           {
-            path: 's_my_exam_papers',
+            path: 'my_exam_papers',
             component: MyExamPapers
           },
           {
-            path: 's_my_questions',
+            path: 'my_questions',
             component: MyQuestions
           },
           {
-            path: 's_upload_question',
+            path: 'upload_question',
             component: QuestionUpload
           },
           {
-            path: 's_my_profile',
+            path: 'my_profile',
             component: MyProfile
           },
           {
-            path: 's_message',
+            path: 'change_password',
+            component: ChangePassword,
+          },
+          {
+            path: 'message',
             component: Message
           },
           {
-            path: 's_compose',
+            path: 'compose',
             component: SCompose
           },
         ]
@@ -100,19 +115,27 @@ const routes = [
 
       // 审题教师路由
       {
-        path: '/r_teacher',
+        path: 'r_teacher',
         component: Content,
         children: [
+          { // 待审核试题
+            path: '',
+            redirect: 'n_r_questions'
+          },
           { // 待审核试题
             path: 'n_r_questions',
             component: NRQuestionsList
           },
           {
-            path: 'r_my_profile',
+            path: 'my_profile',
             component: MyProfile
           },
           {
-            path: 'r_message',
+            path: 'change_password',
+            component: ChangePassword,
+          },
+          {
+            path: 'message',
             component: Message
           }
         ]
@@ -120,51 +143,75 @@ const routes = [
 
       // 校级管理员路由
       {
-        path: '/s_admin',
+        path: 's_admin',
         component: Content,
         children: [
+          {
+            path: '',
+            redirect: 'f_admin_list',
+          },
           {
             path: 'f_admin_list',
             component: FAdminsList,
           },
           {
-            path: 's_admin_authority_manage',
+            path: 'authority_manage',
             component: AuthorityManage,
           },
           {
-            path: 'school_list',
+            path: 'faculty_list',
             component: FacultyList,
           },
           {
-            path: 's_admin_profile',
+            path: 'my_profile',
             component: MyProfile,
           },
           {
-            path: 's_admin_message',
+            path: 'change_password',
+            component: ChangePassword,
+          },
+          {
+            path: 'message',
             component: Message,
           },
+          {
+            path: 'send_message',
+            component: SendMessage
+          }
         ]
       },
 
       // 院级管理员路由
       {
-        path: '/f_admin',
+        path: 'f_admin',
         component: Content,
         children: [
           {
+            path: '',
+            redirect: 'teacher_list'
+          },
+          {
             path: 'teacher_list',
-            component: TeachersList,
+            component: TeachersList
           },
           {
-            path: 'f_profession_manage',
-            component: ProfessionManage,
+            path: 'major_manage',
+            component: MajorManage
           },
           {
-            path: 's_admin_profile',
-            component: MyProfile,
+            path: 'subject_manage',
+            component: SubjectManage
           },
           {
-            path: 's_admin_message',
+            path: 'my_profile',
+            component: MyProfile
+          },
+          {
+            path: 'change_password',
+            component: ChangePassword,
+          },
+          {
+            path: 'message',
             component: Message,
           },
         ]
@@ -172,29 +219,41 @@ const routes = [
 
       // 超级管理员路由
       {
-        path: '/sp_admin',
+        path: 'sp_admin',
         component: Content,
         children: [
           {
-            path: 'sp_user_list',
+            path: '',
+            redirect: 'user_list'
+          },
+          {
+            path: 'user_list',
             component: UserList,
           },
           {
-            path: 'sp_school_list',
+            path: 'school_list',
             component: SchoolList,
           },
           {
-            path: 'sp_user_type_list',
+            path: 'user_type_list',
             component: UserTypeList,
           },
           {
-            path: 'sp_admin_profile',
+            path: 'my_profile',
             component: MyProfile,
           },
           {
-            path: 'sp_admin_message',
+            path: 'change_password',
+            component: ChangePassword,
+          },
+          {
+            path: 'message',
             component: Message,
           },
+          {
+            path: 'send_message',
+            component: SendMessage
+          }
         ]
       },
     ]

@@ -7,14 +7,14 @@
 
 <script>
 
-export default {
-  name: 'app',
-  components: {
-
+  export default {
+    name: 'app',
+    components: {}
   }
-}
 </script>
 
 <style>
-
+  body .el-table th.gutter {
+    display: table-cell !important;
+  }
 </style>

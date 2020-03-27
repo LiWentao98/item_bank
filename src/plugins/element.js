@@ -30,6 +30,13 @@ import {
   Option,
   Link,
   PageHeader,
+  Popover,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Collapse,
+  CollapseItem,
+  Drawer,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -60,5 +67,12 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Link)
 Vue.use(PageHeader)
+Vue.use(Popover)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Collapse)
+Vue.use(CollapseItem)
+Vue.use(Drawer)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
