@@ -63,10 +63,13 @@
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <!-- 详情按钮 -->
-            <el-button type="primary" size="mini">详情</el-button>
+            <el-button type="primary" size="mini" @click="openShowTeacherDetailDialog(scope.row)">详情</el-button>
             <!-- 删除按钮 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini"
-                       @click="removeUserById(scope.row.u_id)"></el-button>
+            <el-button type="danger"
+                       icon="el-icon-delete"
+                       size="mini"
+                       @click="removeUserById(scope.row.u_id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -88,6 +91,53 @@
       </el-row>
 
     </el-card>
+
+    <!--详情-->
+    <el-dialog :visible.sync="showTeacherDetails" width="40%" @close="showTeacherDetailsClosed">
+      <div class="details">
+        <div align="center"><h3>教师用户信息</h3></div>
+        <el-row>
+          <el-col :span="12">
+            用户姓名：{{showTeacherDetailsInfo.name}}
+          </el-col>
+          <el-col :span="12">
+            所属学校：{{showTeacherDetailsInfo.u_school}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            所属院系：{{showTeacherDetailsInfo.u_faculty}}
+          </el-col>
+          <el-col :span="12">
+            用户类型：{{showTeacherDetailsInfo.u_type}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            用户状态：{{showTeacherDetailsInfo.u_state}}
+          </el-col>
+          <el-col :span="12">
+            操作科目：{{showTeacherDetailsInfo.operate_subject}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            用户工号：{{showTeacherDetailsInfo.job_number}}
+          </el-col>
+          <el-col :span="12">
+            绑定邮箱：{{showTeacherDetailsInfo.email}}
+          </el-col>
+        </el-row>
+        <el-row>
+          绑定手机：{{showTeacherDetailsInfo.telephone}}
+        </el-row>
+      </div>
+
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showTeacherDetails = false">关闭</el-button>
+      </span>
+    </el-dialog>
 
     <!-- 添加教师的对话框 -->
     <el-dialog :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
@@ -162,43 +212,66 @@
           // 当前每页显示多少条数据
           pageSize: 2
         },
+        // 存储详情数据
+        showTeacherDetailsInfo: {},
         teacherList: [{
           u_id: '1',
           u_type: '命题教师',
+          u_school: '长江大学',
+          u_faculty: '计算机科学学院',
           operate_subject: '数据结构',
           name: '计1',
           job_number: '000011',
+          telephone: '11111111111',
+          email: '11111111111@qq.com',
           u_state: '正常',
         }, {
           u_id: '2',
           u_type: '命题教师',
+          u_school: '长江大学',
+          u_faculty: '计算机科学学院',
           operate_subject: '数据结构',
           name: '电2',
           job_number: '000012',
+          telephone: '22222222222',
+          email: '22222222222@qq.com',
           u_state: '正常',
         }, {
           u_id: '3',
           u_type: '命题教师',
+          u_school: '长江大学',
+          u_faculty: '计算机科学学院',
           operate_subject: '数据结构',
           name: '机3',
           job_number: '000013',
+          telephone: '33333333333',
+          email: '33333333333@qq.com',
           u_state: '正常',
         }, {
           u_id: '4',
           u_type: '审题教师',
-          operate_subject: '数据结构',
+          u_school: '长江大学',
+          u_faculty: '计算机科学学院',
+          operate_subject: '无',
           name: '石4',
           job_number: '000014',
+          telephone: '44444444444',
+          email: '44444444444@qq.com',
           u_state: '限制登录',
         }, {
           u_id: '5',
           u_type: '审题教师',
-          operate_subject: '数据结构',
+          u_school: '长江大学',
+          u_faculty: '计算机科学学院',
+          operate_subject: '无',
           name: '农5',
           job_number: '000015',
+          telephone: '55555555555',
+          email: '55555555555@qq.com',
           u_state: '正常',
         }],
         total: 0,
+        showTeacherDetails: false,
         // 控制添加用户对话框的显示与隐藏
         addDialogVisible: false,
         // 添加用户的表单数据
@@ -282,11 +355,18 @@
         this.queryInfo.pageNum = newPage
         this.getTeacherList()
       },
+      openShowTeacherDetailDialog(obj) {
+        this.showTeacherDetails = true
+        this.showTeacherDetailsInfo = obj
+      },
+      showTeacherDetailsClosed() {
+        this.showTeacherDetails = false
+      },
       // 监听添加学校对话框的关闭事件
       addDialogClosed() {
         this.$refs.addFormRef.resetFields()
       },
-      // 点击按钮，添加学校
+      // 点击按钮
       addTeacher() {
         this.addTeacherInfo.u_id = parseInt(this.teacherList[this.teacherList.length - 1].u_id) + 1
         this.teacherList.push(this.addTeacherInfo)

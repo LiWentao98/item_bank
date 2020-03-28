@@ -5,10 +5,11 @@
       <img src="~assets/imgs/touxiang_2.png" alt="">
       <div>
         <el-link target="_blank">
-          <span class="mod">修改信息</span>
+          <span class="mod" @click="modMessage">修改信息</span>
         </el-link>
       </div>
-      <el-card shadow="always" class="card1">
+      <!--个人信息显示-->
+      <el-card shadow="always" class="card3">
         <div>
           <li class="common">我的昵称：{{profile.ni_name}}</li>
           <li class="common">我的姓名：{{profile.name}}</li>
@@ -22,6 +23,24 @@
           <li class="common">手机号：{{profile.telephone}}</li>
         </div>
       </el-card>
+
+      <!--修改信息-->
+      <el-dialog :visible.sync="modMessageDialog" width="40%" @close="modMessageClosed">
+        <el-form :model="modMessageFormInfo" :rules="addFormRules" ref="addFormRef" label-width="100px">
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="modMessageFormInfo.email" filterable placeholder="请输入邮箱">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="姓名" prop="name">
+            <el-input v-model="modMessageFormInfo.telephone" placeholder="请输入手机号">
+            </el-input>
+          </el-form-item>
+        </el-form>
+
+        <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="modMessageCommit">确 定</el-button>
+      </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -91,6 +110,9 @@
           email: '11111111115@qq.com',
           telephone: '11111111115'
         },
+        modMessageDialog: false,
+        modMessageFormInfo: {},
+        showAfterMod: {},
         profile: {}
       }
     },
@@ -103,19 +125,53 @@
         switch (b) {
           case 1:
             this.profile = this.sTProfile
+            this.modMessageFormInfo = this.sTProfile
             break
           case 2:
             this.profile = this.rTProfile
+            this.modMessageFormInfo = this.rTProfile
             break
           case 3:
             this.profile = this.sAProfile
+            this.modMessageFormInfo = this.sAProfile
             break
           case 4:
             this.profile = this.fAProfile
+            this.modMessageFormInfo = this.fAProfile
             break
           case 5:
             this.profile = this.spProfile
+            this.modMessageFormInfo = this.spProfile
         }
+      },
+      modMessageCommit() {
+        let c = parseInt(window.sessionStorage.getItem("token"))
+        this.showAfterMod = this.modMessageFormInfo
+        switch (c) {
+          case 1:
+            this.sTProfile = this.showAfterMod
+            break
+          case 2:
+            this.rTProfile = this.showAfterMod
+            break
+          case 3:
+            this.sAProfile = this.showAfterMod
+            break
+          case 4:
+            this.fAProfile = this.showAfterMod
+            break
+          case 5:
+            this.spProfile = this.showAfterMod
+        }
+        this.getProfile()
+        this.$message.success('修改成功')
+        this.modMessageDialog = false
+      },
+      modMessageClosed() {
+        this.modMessageDialog = false
+      },
+      modMessage() {
+        this.modMessageDialog = true
       }
     }
   }
@@ -134,7 +190,7 @@
   .card0 {
     height: 740px;
 
-    .card1 {
+    .card3 {
       //margin-top: 100px;
       font-size: 15px;
       position: absolute;

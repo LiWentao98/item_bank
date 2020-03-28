@@ -1,32 +1,41 @@
 <template>
   <div>
-    <div class="crumbs">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <i class="el-icon-lx-calendar"></i> 试卷
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>我的试卷</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+    <!-- 面包屑导航区域 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>试卷</el-breadcrumb-item>
+      <el-breadcrumb-item>我的试卷</el-breadcrumb-item>
+    </el-breadcrumb>
+
     <el-card class="box-card">
-      <el-table ref="multipleTable" :data="tableData" border style="width: 100%">
-        <el-table-column type="selection" width="60"></el-table-column>
-        <el-table-column prop="eNumber1" label="试卷id" width="180" align="center"></el-table-column>
-        <el-table-column prop="eNumber2" label="试卷名称" width="750" align="center"></el-table-column>
+      <el-table ref="multipleTable" :data="tableData" border stripe style="width: 100%">
+        <el-table-column type="selection" width="50"></el-table-column>
+        <el-table-column prop="eNumber1" label="试卷id" width="100" align="center"></el-table-column>
+        <el-table-column prop="eNumber2" label="试卷名称" width="700" align="center"></el-table-column>
         <el-table-column prop="eNumber3" label="组卷时间" width="180" align="center"></el-table-column>
-        <el-table-column prop="eNumber4" label="组卷方式" width="180" align="center"></el-table-column>
-        <el-table-column prop="eNumber5" label="操作" width="180" align="center">
+        <el-table-column prop="eNumber4" label="组卷方式" align="center"></el-table-column>
+        <el-table-column prop="eNumber5" label="操作" align="center">
           <template slot-scope="scope">
             <el-button
-                    type="text"
+                    type="danger"
                     icon="el-icon-delete"
-                    class="red"
+                    size="mini"
                     @click="handleDelete(scope.$index, scope.row)"
             >删除
             </el-button>
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- 分页区域 -->
+      <el-row :gutter="20">
+        <el-col :span="21">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                         :current-page="queryInfo.pageNum" :page-sizes="[1, 2, 5]" :page-size="queryInfo.pageSize"
+                         layout="total, sizes, prev, pager, next, jumper" :total="total">
+          </el-pagination>
+        </el-col>
+      </el-row>
     </el-card>
   </div>
 </template>
@@ -47,10 +56,24 @@
           eNumber4: '手动组卷',
         }],
         multipleSelection: [],
-
+        // 获取用户列表的参数对象
+        queryInfo: {
+          query: '',
+          // 当前的页数
+          pageNum: 1,
+          // 当前每页显示多少条数据
+          pageSize: 2
+        },
+        total: 0
       }
     },
+    created() {
+      this.getExamPaperList()
+    },
     methods: {
+      getExamPaperList() {
+        this.total = this.tableData.length
+      },
       handleDelete(index, row) {
         // 二次确认删除
         this.$confirm('确定要删除吗？', '提示', {
@@ -63,6 +86,16 @@
           .catch(() => {
           });
       },
+      // 监听 pagesize 改变的事件
+      handleSizeChange(newSize) {
+        // console.log(newSize)
+        this.queryInfo.pagesize = newSize
+      },
+      // 监听 页码值 改变的事件
+      handleCurrentChange(newPage) {
+        console.log(newPage)
+        this.queryInfo.pageNum = newPage
+      },
     }
   }
 </script>
@@ -71,8 +104,8 @@
     color: #ff0000;
   }
 
-  .el-table .cell {
-    white-space: pre-line;
-    white-space: pre;
-  }
+  /*.el-table .cell {*/
+  /*white-space: pre-line;*/
+  /*white-space: pre;*/
+  /*}*/
 </style>

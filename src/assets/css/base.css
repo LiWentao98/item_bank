@@ -35,3 +35,21 @@ html, body, #app {
 .el-textarea .el-textarea__inner{
   resize: none;
 }
+
+.el-table--border::after, .el-table--group::after {
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+}
+
+.details {
+  height: 300px;
+  text-align: left;
+  line-height: 36px;
+  font-size: 18px;
+}
+
+.card2 {
+  margin-top: 10px;
+}

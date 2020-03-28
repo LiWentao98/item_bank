@@ -177,11 +177,7 @@
             id: 11,
             authName: '用户列表',
             path: 'home/s_admin/f_admin_list',
-          }, {
-            id: 12,
-            authName: '权限管理',
-            path: 'home/s_admin/authority_manage',
-          }]
+          }, ]
         }, {
           id: 2,
           authName: '院系管理',

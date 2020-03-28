@@ -16,11 +16,14 @@
         <el-table-column label="类型名称" prop="u_type_name"></el-table-column>
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
-            <el-button type="info" size="mini">详情</el-button>
+            <el-button type="primary" size="mini" @click="showTypeDetail(scope.row)">详情</el-button>
             <!-- 删除按钮 -->
             <el-tooltip class="item" effect="dark" content="删除用户类型" placement="right">
-              <el-button type="danger" icon="el-icon-delete" size="mini"
-                         @click="removeUserById(scope.row.u_type)"></el-button>
+              <el-button type="danger"
+                         icon="el-icon-delete"
+                         size="mini"
+                         @click="removeUserById(scope.row.u_type)">删除
+              </el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -40,6 +43,14 @@
         </el-col>
       </el-row>
     </el-card>
+
+    <el-dialog :visible.sync="showTypeDialog" width="40%" @close="showTypeDetailClosed">
+      <div align="center"><h2>{{typeInfo}}</h2></div>
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showTypeDialog = false">关闭</el-button>
+      </span>
+    </el-dialog>
 
     <!-- 添加学校的对话框 -->
     <el-dialog title="添加类型" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
@@ -94,6 +105,9 @@
           }
         ],
         total: 0,
+        showTypeDialog: false,
+        showTypeDetailInfo: {},
+        typeInfo: '',
         // 控制添加用户对话框的显示与隐藏
         addDialogVisible: false,
         // 添加用户的表单数据
@@ -139,6 +153,15 @@
         // console.log(newPage)
         this.queryInfo.pageNum = newPage
         this.getTypeList()
+      },
+      showTypeDetail(obj) {
+        this.showTypeDialog = true
+        console.log(obj.u_type);
+        this.typeInfo = obj.u_type_name
+
+      },
+      showTypeDetailClosed() {
+        this.showTypeDialog = false
       },
       // 监听添加学校对话框的关闭事件
       addDialogClosed() {

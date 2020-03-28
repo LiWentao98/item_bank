@@ -13,24 +13,25 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="用户id">
-              <el-input v-model="searchForm.u_id" placeholder="请输入用户id" clearable></el-input>
+              <el-input class="common_input" v-model="searchForm.u_id" placeholder="请输入用户id" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="用户姓名">
-              <el-input v-model="searchForm.name" placeholder="请输入用户姓名" clearable></el-input>
+              <el-input class="common_input" v-model="searchForm.name" placeholder="请输入用户姓名" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="用户职工号">
-              <el-input v-model="searchForm.job_number" placeholder="请输入用户职工号" clearable></el-input>
+              <el-input class="common_input" v-model="searchForm.job_number" placeholder="请输入用户职工号"
+                        clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="用户状态">
-              <el-select v-model="searchForm.u_state" placeholder="请选择用户状态">
+              <el-select class="common_select" v-model="searchForm.u_state" placeholder="请选择用户状态">
                 <el-option label="正常" value="1"></el-option>
                 <el-option label="限制登录" value="0"></el-option>
               </el-select>
@@ -38,7 +39,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="所属学校">
-              <el-select v-model="searchForm.u_school" filterable placeholder="请选择/搜索院校">
+              <el-select class="common_select" v-model="searchForm.u_school" filterable placeholder="请选择/搜索院校">
                 <el-option label="长江大学" value="1"></el-option>
                 <el-option label="三峡大学" value="2"></el-option>
                 <el-option label="武汉大学" value="3"></el-option>
@@ -49,7 +50,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="用户类型">
-              <el-select v-model="searchForm.u_type" placeholder="请选择用户类型">
+              <el-select class="common_select" v-model="searchForm.u_type" placeholder="请选择用户类型">
                 <el-option label="超级管理员" value="1"></el-option>
                 <el-option label="校级管理员" value="2"></el-option>
                 <el-option label="院级管理员" value="3"></el-option>
@@ -86,11 +87,14 @@
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <!-- 详情按钮 -->
-            <el-button type="primary" size="mini">详情</el-button>
+            <el-button type="primary" size="mini" @click="openShowSAdminDetailDialog(scope.row)">详情</el-button>
             <!-- 删除按钮 -->
-            <el-tooltip class="item" effect="dark" content="删除校级管理员" placement="right">
-              <el-button type="danger" icon="el-icon-delete" size="mini"
-                         @click="removeUserById(scope.row.u_id)"></el-button>
+            <el-tooltip class="item" effect="dark" content="删除用户" placement="right">
+              <el-button type="danger"
+                         icon="el-icon-delete"
+                         size="mini"
+                         @click="removeUserById(scope.row.u_id)">删除
+              </el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -113,6 +117,53 @@
         </el-col>
       </el-row>
     </el-card>
+
+    <!--详情-->
+    <el-dialog :visible.sync="showSAdminDialog" width="40%" @close="showSAdminDetailsClosed">
+      <div class="details">
+        <div align="center"><h3>用户信息</h3></div>
+        <el-row>
+          <el-col :span="12">
+            用户姓名：{{showSAdminDetailsInfo.name}}
+          </el-col>
+          <el-col :span="12">
+            所属学校：{{showSAdminDetailsInfo.u_school}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            所属院系：{{showSAdminDetailsInfo.u_faculty}}
+          </el-col>
+          <el-col :span="12">
+            用户类型：{{showSAdminDetailsInfo.u_type}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            用户状态：{{showSAdminDetailsInfo.u_state}}
+          </el-col>
+          <el-col :span="12">
+            操作科目：{{showSAdminDetailsInfo.operate_subject}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            用户工号：{{showSAdminDetailsInfo.job_number}}
+          </el-col>
+          <el-col :span="12">
+            绑定邮箱：{{showSAdminDetailsInfo.email}}
+          </el-col>
+        </el-row>
+        <el-row>
+          绑定手机：{{showSAdminDetailsInfo.telephone}}
+        </el-row>
+      </div>
+
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showSAdminDialog = false">关闭</el-button>
+      </span>
+    </el-dialog>
 
     <!-- 添加校级管理员的对话框 -->
     <el-dialog :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
@@ -172,6 +223,8 @@
           u_type: '超级管理员',
           u_school: '长江大学',
           name: '测试1',
+          operate_subject: '无',
+          u_faculty: '计算机科学学院',
           telephone: '11111111111',
           job_number: '000001',
           email: '11111111111@qq.com',
@@ -181,6 +234,8 @@
           u_type: '校级管理员',
           u_school: '长江大学',
           name: '测试2',
+          operate_subject: '无',
+          u_faculty: '计算机科学学院',
           telephone: '22222222222',
           job_number: '000002',
           email: '22222222222@qq.com',
@@ -190,6 +245,8 @@
           u_type: '院级管理员',
           u_school: '长江大学',
           name: '测试3',
+          operate_subject: '无',
+          u_faculty: '计算机科学学院',
           telephone: '33333333333',
           job_number: '000003',
           email: '33333333333@qq.com',
@@ -199,8 +256,10 @@
           u_type: '审题教师',
           u_school: '长江大学',
           name: '测试4',
+          u_faculty: '计算机科学学院',
           telephone: '44444444444',
           job_number: '000004',
+          operate_subject: '五',
           email: '44444444444@qq.com',
           u_state: '限制登录',
         }, {
@@ -208,12 +267,16 @@
           u_type: '命题教师',
           u_school: '长江大学',
           name: '测试5',
+          operate_subject: '数据结构',
+          u_faculty: '计算机科学学院',
           telephone: '55555555555',
           job_number: '000005',
           email: '55555555555@qq.com',
           u_state: '正常',
         }],
         total: 0,
+        showSAdminDialog: false,
+        showSAdminDetailsInfo: {},
         addDialogVisible: false,
         addSAdminInfo: {
           u_id: '',
@@ -259,7 +322,7 @@
           return this.$message.info('已取消删除')
         }
 
-        this.UserList.splice(id - 1, 1)
+        this.sAdminList.splice(id - 1, 1)
         this.$message.success('删除用户成功！')
         this.getSAdminList()
       },
@@ -267,17 +330,18 @@
         this.total = this.sAdminList.length
         console.log(this.total);
       },
-      // 监听 pagesize 改变的事件
-      handleSizeChange(newSize) {
-        console.log(newSize)
-        this.queryInfo.pageSize = newSize
-        this.getSAdminList()
-      },
       // 监听 页码值 改变的事件
       handleCurrentChange(newPage) {
         console.log(newPage)
         this.queryInfo.pageNum = newPage
         this.getSAdminList()
+      },
+      openShowSAdminDetailDialog(obj) {
+        this.showSAdminDialog = true
+        this.showSAdminDetailsInfo = obj
+      },
+      showSAdminDetailsClosed() {
+        this.showSAdminDialog = false
       },
       addDialogClosed() {
         this.$refs.addFormRef.resetFields()
@@ -295,11 +359,8 @@
 </script>
 
 <style lang="less">
-  .el-select, .el-input {
-    width: 320px;
+  .common_select, .common_input {
+    width: 280px;
   }
 
-  .card2 {
-    margin-top: 10px;
-  }
 </style>

@@ -17,17 +17,26 @@
         <el-table-column label="操作" width="180px">
           <template v-slot="scope">
             <!-- 删除按钮 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini"
-                       @click="removeUserById(scope.row.subject_id)"></el-button>
+            <el-button type="danger"
+                       icon="el-icon-delete"
+                       size="mini"
+                       @click="removeUserById(scope.row.subject_id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <!--添加学科-->
+      <!-- 分页区域 -->
       <el-row :gutter="20">
-        <el-col :span="24">
-          <div align="right" style="margin-right: 30px">
-            <el-tooltip class="item" effect="dark" content="新增学科" placement="right">
+        <el-col :span="21">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                         :current-page="queryInfo.pageNum" :page-sizes="[1, 2, 5]" :page-size="queryInfo.pageSize"
+                         layout="total, sizes, prev, pager, next, jumper" :total="total">
+          </el-pagination>
+        </el-col>
+        <el-col :span="3">
+          <div style="margin-top: 5px">
+            <el-tooltip class="item" effect="dark" content="新添学科" placement="right">
               <el-button type="primary" @click="addDialogVisible = true">添加学科</el-button>
             </el-tooltip>
           </div>
@@ -116,10 +125,25 @@
         },
         // 控制添加用户对话框的显示与隐藏
         addDialogVisible: false,
-        addSubjectFormRules: []
+        addSubjectFormRules: [],
+        // 获取用户列表的参数对象
+        queryInfo: {
+          query: '',
+          // 当前的页数
+          pageNum: 1,
+          // 当前每页显示多少条数据
+          pageSize: 2
+        },
+        total: 0
       }
     },
+    created() {
+      this.getSubjectList()
+    },
     methods: {
+      getSubjectList() {
+        this.total = this.subjectList.length
+      },
       cellStyle() {
         return 'text-align: center'
       },

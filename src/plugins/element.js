@@ -37,6 +37,9 @@ import {
   Collapse,
   CollapseItem,
   Drawer,
+  Checkbox,
+  CheckboxGroup,
+  InputNumber,
 } from 'element-ui'
 
 Vue.use(Button)
@@ -74,5 +77,8 @@ Vue.use(DropdownItem)
 Vue.use(Collapse)
 Vue.use(CollapseItem)
 Vue.use(Drawer)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(InputNumber)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

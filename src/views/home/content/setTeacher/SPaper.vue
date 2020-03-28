@@ -1,5 +1,5 @@
 <template>
-    <div>我的试卷</div>
+  <div>我的试卷</div>
 </template>
 
 <script>

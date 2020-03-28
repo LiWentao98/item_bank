@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '../views/login/Login'
 
 // 路由懒加载
-const Login = () => import("../views/login/Login")
 const Home = () => import("../views/home/Home")
 const Content = () => import("../views/home/content/Content")
 
@@ -153,10 +153,6 @@ const routes = [
           {
             path: 'f_admin_list',
             component: FAdminsList,
-          },
-          {
-            path: 'authority_manage',
-            component: AuthorityManage,
           },
           {
             path: 'faculty_list',

@@ -35,8 +35,11 @@
             <!--详情-->
             <el-button type="primary" size="mini" @click="showMessage(scope.row)">详情</el-button>
             <!-- 删除按钮 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini"
-                       @click="removeMessageById(scope.row.n_id)"></el-button>
+            <el-button type="danger"
+                       icon="el-icon-delete"
+                       size="mini"
+                       @click="removeMessageById(scope.row.n_id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>

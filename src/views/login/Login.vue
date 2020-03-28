@@ -4,7 +4,7 @@
       <div class="title">研招网欢迎您</div>
       <el-form ref="loginFormRef" :model='loginForm' :rules="loginFormRules" label-width="0px" class="login_form">
         <!--学校-->
-        <el-form-item prop="schools">
+        <el-form-item prop="value1">
           <el-select v-model="loginForm.value1" placeholder="请选择学校" filterable class="select_school"
                      no-match-text="没有匹配选项">
             <el-option v-for="item in loginForm.schools" :key="item.value" :label="item.label"
@@ -13,7 +13,7 @@
           </el-select>
         </el-form-item>
         <!--用户类型-->
-        <el-form-item>
+        <el-form-item prop="value2">
           <el-select v-model="loginForm.value2" placeholder="请选择用户类型" class="select_type">
             <el-option v-for="item in loginForm.types" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
@@ -34,7 +34,7 @@
         <!--按钮区域-->
         <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="resetLoginForm">重置</el-button>
+          <el-button type="info" @click="resetLoginForm('loginFormRef')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -90,8 +90,8 @@
     },
     methods: {
       // 点击重置按钮，重置表单
-      resetLoginForm() {
-        this.$refs.loginFormRef.resetFields()
+      resetLoginForm(loginFormRef) {
+        this.$refs[loginFormRef].resetFields()
       },
       login() {
         let res = this.loginForm
@@ -176,7 +176,7 @@
   /*width: 410px;*/
   /*}*/
   .el-select, .el-input {
-    width: 410px;
+    width: 100%;
   }
 
   .forget {

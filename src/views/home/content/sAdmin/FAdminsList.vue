@@ -64,10 +64,13 @@
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <!-- 详情按钮 -->
-            <el-button type="primary" size="mini">详情</el-button>
-            <el-tooltip class="item" effect="dark" content="删除院级管理员" placement="right">
-              <el-button type="danger" icon="el-icon-delete" size="mini"
-                         @click="removeUserById(scope.row.u_id)"></el-button>
+            <el-button type="primary" size="mini" @click="openShowFAdminDetailDialog(scope.row)">详情</el-button>
+            <el-tooltip class="item" effect="dark" content="删除院级管理员" placement="top-end">
+              <el-button type="danger"
+                         icon="el-icon-delete"
+                         size="mini"
+                         @click="removeUserById(scope.row.u_id)">删除
+              </el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -86,8 +89,54 @@
           </el-tooltip>
         </el-col>
       </el-row>
-
     </el-card>
+
+    <!--详情-->
+    <el-dialog :visible.sync="showFAdminDetails" width="40%" @close="showFAdminDetailsClosed">
+      <div class="details">
+        <div align="center"><h3>院级用户信息</h3></div>
+        <el-row>
+          <el-col :span="12">
+            用户姓名：{{showFAdminDetailsInfo.name}}
+          </el-col>
+          <el-col :span="12">
+            所属学校：{{showFAdminDetailsInfo.u_school}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            所属院系：{{showFAdminDetailsInfo.u_faculty}}
+          </el-col>
+          <el-col :span="12">
+            用户类型：{{showFAdminDetailsInfo.u_type}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            用户状态：{{showFAdminDetailsInfo.u_state}}
+          </el-col>
+          <el-col :span="12">
+            操作科目：{{showFAdminDetailsInfo.operate_subject}}
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            用户工号：{{showFAdminDetailsInfo.job_number}}
+          </el-col>
+          <el-col :span="12">
+            绑定邮箱：{{showFAdminDetailsInfo.email}}
+          </el-col>
+        </el-row>
+        <el-row>
+          绑定手机：{{showFAdminDetailsInfo.telephone}}
+        </el-row>
+      </div>
+
+      <!-- 底部区域 -->
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showFAdminDetails = false">关闭</el-button>
+      </span>
+    </el-dialog>
 
     <!-- 添加院级管理员的对话框 -->
     <el-dialog :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
@@ -158,6 +207,9 @@
         },
         fAdminList: [{
           u_id: '1',
+          u_school: '长江大学',
+          u_type: '院级管理员',
+          operate_subject: '无',
           u_faculty: '计算机科学学院',
           name: '计1',
           telephone: '11111111111',
@@ -166,6 +218,9 @@
           u_state: '正常',
         }, {
           u_id: '2',
+          u_school: '长江大学',
+          u_type: '院级管理员',
+          operate_subject: '无',
           u_faculty: '电子信息学院',
           name: '电2',
           telephone: '22222222222',
@@ -174,6 +229,9 @@
           u_state: '正常',
         }, {
           u_id: '3',
+          u_school: '长江大学',
+          u_type: '院级管理员',
+          operate_subject: '无',
           u_faculty: '机械学院',
           name: '机3',
           telephone: '33333333333',
@@ -182,6 +240,9 @@
           u_state: '正常',
         }, {
           u_id: '4',
+          u_school: '长江大学',
+          u_type: '院级管理员',
+          operate_subject: '无',
           u_faculty: '石油学院',
           name: '石4',
           telephone: '44444444444',
@@ -190,6 +251,9 @@
           u_state: '限制登录',
         }, {
           u_id: '5',
+          u_school: '长江大学',
+          u_type: '院级管理员',
+          operate_subject: '无',
           u_faculty: '农学院',
           name: '农5',
           telephone: '55555555555',
@@ -198,6 +262,10 @@
           u_state: '正常',
         }],
         total: 0,
+        // 控制详情页面显示与隐藏
+        showFAdminDetails: false,
+        // 存储详情数据
+        showFAdminDetailsInfo: {},
         // 控制添加用户对话框的显示与隐藏
         addDialogVisible: false,
         // 添加用户的表单数据
@@ -274,17 +342,18 @@
         this.total = this.fAdminList.length
         console.log(this.total);
       },
-      // 监听 pagesize 改变的事件
-      handleSizeChange(newSize) {
-        console.log(newSize)
-        this.queryInfo.pageSize = newSize
-        this.getFAdminList()
-      },
       // 监听 页码值 改变的事件
       handleCurrentChange(newPage) {
         console.log(newPage)
         this.queryInfo.pageNum = newPage
         this.getFAdminList()
+      },
+      openShowFAdminDetailDialog(obj) {
+        this.showFAdminDetails = true
+        this.showFAdminDetailsInfo = obj
+      },
+      showFAdminDetailsClosed() {
+        this.showFAdminDetails = false
       },
       // 监听添加学校对话框的关闭事件
       addDialogClosed() {
@@ -323,4 +392,6 @@
   .title_a {
     font-size: 20px;
   }
+
+
 </style>

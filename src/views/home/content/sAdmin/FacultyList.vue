@@ -30,8 +30,11 @@
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <!-- 删除按钮 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini"
-                       @click="removeUserById(scope.row.faculty_id)"></el-button>
+            <el-button type="danger"
+                       icon="el-icon-delete"
+                       size="mini"
+                       @click="removeUserById(scope.row.faculty_id)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
