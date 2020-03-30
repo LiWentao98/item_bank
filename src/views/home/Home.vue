@@ -9,7 +9,8 @@
         <span class="main_title">研究生招生考试题库</span>
       </div>
 
-      <div class="welcome_user">欢迎您：{{userType}}</div>
+      <div class="welcome_user" v-if="isShow">欢迎您：{{userType}}</div>
+      <div v-else>欢迎您：{{userType}}</div>
       <!--头像下拉组件-->
       <el-dropdown @command="handleCommand">
       <span class="el-dropdown-link">
@@ -123,17 +124,7 @@
               path: 'home/s_teacher/my_questions',
             }
           ]
-        }, {
-          id: 5,
-          authName: '个人详情',
-          children: [
-            {
-              id: 16,
-              authName: '我的信息',
-              path: 'home/s_teacher/my_profile',
-            }
-          ]
-        }, {
+        },  {
           id: 6,
           authName: '消息管理',
           children: [
@@ -304,7 +295,8 @@
         isCollapse: false,
         // 当前子路由的路径，即激活路径
         activePath: '',
-        skipPath: ''
+        skipPath: '',
+        isShow: true
       }
     },
     created() {
@@ -314,7 +306,24 @@
       // 从sessionStorage中拿到激活路径
       this.activePath = window.sessionStorage.getItem('activePath')
     },
+    mounted() {
+      // let w = document.documentElement.offsetWidth || document.body.offsetWidth;
+      // if(w < 1000){
+      //   this.isShow = false;
+      // }
+      if (this._isMobile()) {
+        console.log("手机端");
+        this.isShow = false
+      } else {
+        console.log("pc端");
+        this.isShow = true
+      }
+    },
     methods: {
+      _isMobile() {
+        let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+        return flag;
+      },
       // 判断用户类型，跳转到首页
       routerStr() {
         let c = parseInt(window.sessionStorage.getItem("token"))
@@ -470,6 +479,4 @@
     right: 90px;
     top: 20px;
   }
-
-
 </style>

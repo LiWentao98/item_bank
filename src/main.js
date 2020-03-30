@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import store from './store'
 import './plugins/element.js'
+import router from './router'
 
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'

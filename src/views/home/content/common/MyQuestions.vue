@@ -12,10 +12,10 @@
         <el-table-column type="selection" width="50"></el-table-column>
         <el-table-column prop="eNumber1" label="题目id" width="100" align="center"></el-table-column>
         <el-table-column prop="eNumber2" label="题型" width="100" align="center"></el-table-column>
-        <el-table-column prop="eNumber3" label="题目内容" width="800" align="center"></el-table-column>
+        <el-table-column prop="eNumber3" label="题目内容"  align="center"></el-table-column>
         <el-table-column prop="eNumber4" label="上传时间" width="200" align="center"></el-table-column>
-        <el-table-column prop="eNumber5" label="状态" align="center"></el-table-column>
-        <el-table-column prop="eNumber6" label="操作" align="center">
+        <el-table-column prop="eNumber5" label="状态" width="100" align="center"></el-table-column>
+        <el-table-column prop="eNumber6" label="操作" width="100" align="center">
           <template slot-scope="scope">
             <el-button
                     type="danger"

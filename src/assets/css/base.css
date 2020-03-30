@@ -44,7 +44,7 @@ html, body, #app {
 }
 
 .details {
-  height: 300px;
+  height: 280px;
   text-align: left;
   line-height: 36px;
   font-size: 18px;
@@ -53,3 +53,4 @@ html, body, #app {
 .card2 {
   margin-top: 10px;
 }
+

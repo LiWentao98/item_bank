@@ -21,7 +21,7 @@
         <el-row>
           <el-col :span="16">
             <el-form-item label="通知内容">
-              <el-input type="textarea" rows="20" v-model="sendMsgForm.n_content" placeholder="请在此输入通知内容"></el-input>
+              <el-input type="textarea" rows="18" v-model="sendMsgForm.n_content" placeholder="请在此输入通知内容"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

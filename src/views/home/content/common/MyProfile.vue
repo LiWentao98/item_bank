@@ -2,7 +2,7 @@
   <div>
     <el-card class="card0">
       <h3 class="title">个人信息</h3>
-      <img src="~assets/imgs/touxiang_2.png" alt="">
+      <img src="../../../../assets/imgs/touxiang_2.png" alt="">
       <div>
         <el-link target="_blank">
           <span class="mod" @click="modMessage">修改信息</span>
@@ -196,17 +196,17 @@
       position: absolute;
       left: 395px;
       top: 190px;
-      width: 1000px;
-      height: 600px;
+      width: 700px;
+      height: 580px;
       background-color: #fdfdfd;
     }
   }
 
   .common {
     text-align: left;
-    height: 55px;
+    height: 52px;
     line-height: 36px;
-    font-size: 18px;
+    font-size: 15px;
     color: #4d4d4d;
   }
 

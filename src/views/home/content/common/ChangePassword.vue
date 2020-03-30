@@ -2,7 +2,7 @@
   <div>
     <el-card class="card0">
       <h3 class="title">修改密码</h3>
-      <img src="~assets/imgs/touxiang_2.png" alt="">
+      <img src="../../../../assets/imgs/touxiang_2.png" alt="">
       <el-card shadow="always" class="card1">
         <el-form ref="modPwForm" :model="modPwInfo" label-width="100px" style="margin-top: 15px">
           <el-row>
@@ -82,7 +82,7 @@
       position: absolute;
       left: 395px;
       top: 190px;
-      width: 1000px;
+      width: 700px;
       height: 400px;
       background-color: #fdfdfd;
     }

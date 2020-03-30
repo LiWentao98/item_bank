@@ -20,11 +20,11 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="eNumber1" label="题目id" width="100" align="center"></el-table-column>
-        <el-table-column prop="eNumber2" label="题型" width="150" align="center"></el-table-column>
-        <el-table-column prop="eNumber3" label="题目内容(部分内容)" width="600" align="center"></el-table-column>
+        <el-table-column prop="eNumber1" label="id" width="60" align="center"></el-table-column>
+        <el-table-column prop="eNumber2" label="题型" width="80" align="center"></el-table-column>
+        <el-table-column prop="eNumber3" label="题目内容(部分内容)" align="center"></el-table-column>
         <el-table-column prop="eNumber4" label="上传时间" align="center"></el-table-column>
-        <el-table-column prop="eNumber6" label="操作" width="200" align="center">
+        <el-table-column prop="eNumber6" label="操作" width="180" align="center">
           <template slot-scope="scope">
             <el-button
                     type="primary" size="mini"

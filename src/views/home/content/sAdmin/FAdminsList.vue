@@ -59,7 +59,7 @@
         <el-table-column label="姓名" prop="name"></el-table-column>
         <el-table-column label="电话" prop="telephone"></el-table-column>
         <el-table-column label="职工号" prop="job_number"></el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
+        <el-table-column label="邮箱" prop="email" width="300px"></el-table-column>
         <el-table-column label="用户状态" prop="u_state"></el-table-column>
         <el-table-column label="操作" width="180px">
           <template slot-scope="scope">

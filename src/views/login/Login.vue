@@ -108,7 +108,7 @@
           // 将类型转换成string送入sessionStorage存储
           window.sessionStorage.setItem("token", str)
           this.$router.push("/home")
-          return this.$message.success('登陆成功！')
+          return this.$message.success('登陆成功')
         } else {
           return this.$message.error('用户名或密码错误！')
         }
